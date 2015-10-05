@@ -1,0 +1,3 @@
+language: objective-c
+xcode_project: Hello-World.xcodeproj # path to your xcodeproj folder
+xcode_scheme: Hello-WorldTests

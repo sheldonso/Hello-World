@@ -1,6 +1,11 @@
 language: objective-c
 
 
+before_install:
+  - brew update
+  - brew outdated xctool || brew upgrade xctool
+
+
 # xcodebuild vs xctool:
 # xcodebuild -project Hello-World.xcodeproj -target Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # xcodebuild -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO

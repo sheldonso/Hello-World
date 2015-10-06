@@ -6,5 +6,5 @@ language: objective-c
 # xcodebuild -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # xcodebuild test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 script:
-  - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  # - xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  # - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO

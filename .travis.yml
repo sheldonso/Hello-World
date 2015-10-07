@@ -1,11 +1,19 @@
 language: objective-c
-
-
 osx_image: xcode7
-
-
 script:
-  - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  # - xcodebuild -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  # - xcodebuild test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator
+  ONLY_ACTIVE_ARCH=NO
+- xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator
+  ONLY_ACTIVE_ARCH=NO
+env:
+  global:
+  - APP_NAME="Hello-World"
+  - 'DEVELOPER_NAME="iPhone Distribution: Datacom (3W2D35BGJW)"'
+  - PROFILE_NAME="Hello_World"
+  - secure: aVUUocavd+48hnj+yRTdZ65vP8IhHBxMFuJL77wKosR+M1RpXXgDfcQZqU3cSqkgIH/5FZCAWBcbNlUWtOBICQLxr3apIa1DNOaK8eRd2BJlaUQKOZcLcx7jyfXo49qXfk1j8qhwn5ykmmAIwxOrER/mx+YSOpK9Wn+EEp/J23OZa9NA8+nTjktt9cQN3Cdn8npFy4QXpPJaPgwM5DAVb+fvcndvMsg1gB7dPXUTv6RCJFB2iUzhzGTmjAnriLrcA7cs1/P8Mdbdnyoe4j6VQBGB2cMFTmL1uXm5tk280+KwAwZIiYM9GMNpglT7mVntR5qZ5uMLkNV/L+4U0VSCH0O9RH7aMF+t84q5xNMHNg+1bSDBEGmcxn7HHMcf/bhqKF475cTSfDxN7tklJ/G7HoDx6iaLlxq9ScYF7UfHz6LZf3yK5saGXFJeaLZ8wKRFBBq3uo7rc7G//G/RyYqJS9eTzZRgLps2dJPtMfH+Tn6JW/FoQftqDPS4djrHYQAHX4Sr1AFNoGlOrYxbZrRefUAQm0GpsxWDmFQaVI42VaqTsy+/4F/Wrz1JC4fjK9nRCNzN4by//jXtjTBizWci9xQkLWLnPACzpRT4BBkIE7g4bb2H7VmkBNcGqNe90gRMcMGxJyyBSS3jyZrVAWwUi/PoJN76P0g2iyrfXhkKnNc=
+  - secure: NT5VGJ6KUIzvr75OmXeWyWJ9hUZTqqWbvqzRUgY+CF/4k7mr6/PSRszXY78igHwZ89Uj38qC8I2RZ4iml3yoSMqszhipF00slibIi+XcCspAzXPWeR7T5GZtHOS/DsA2Ht84fhZ1yi0DNFgEo8kIqi4OfJo6haV18Cdnwra5vURJ7EapbN9HpMPJs2v5Gc3pnRgxDLWYuiLUMHm/PSn1phXG+fkWda21vWw6xHuAsZdOp+Oh1+o4LX2bqWX4v6DTrwuvHh9X8ergrRNn9uQzs9H6z0BRsI3K1iZQfvguPYv0V7vxt//EX+3Li3lDHRKE4xBW/GlNbVZSrslAVRrf5UZsEANM/7AYmVD3RVOxF2yh9uDiUnusso1oChkIe8Uqu6TiJ5P9PeP7ZySH6OG5UVuZM5YGiKgwaWA9VGMxP0mKqsiBluNWoElEF/V+tJln4kKSki/6pfZtdyx6lC2+dixzE5zq/0AgM18cnxm6/2w5OKSHvrJvCP8ynhbZZo+Qfnq4wuS6i1CDZxUPTWjFBuKstwkn6dN2/X3ZgFNwGVarvoWFeCOoxLd8VHtVocy52sPmn4DvgLITTXe+lBiHCl39bMMApGjPYL2yLQRxr5piKiNo45vAAUIz82BUCQ5NnAYG9aLoxiDhvg/Pd3s1uVF0Umy4GBm9l5I+pNvJ8c0=
+
+before_script:
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/Hello_World.mobileprovision.enc -d -a -out scripts/profile/Hello_World.mobileprovision
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a -out scripts/certs/dist.cer
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12

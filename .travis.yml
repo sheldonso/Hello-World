@@ -4,25 +4,21 @@ before_script:
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/Hello_World.mobileprovision.enc -d -a -out scripts/profile/Hello_World.mobileprovision
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a -out scripts/certs/dist.cer
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
-- ./scripts/add-key.sh
-
-- pod install
-
+- "./scripts/add-key.sh"
 script:
-- xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO 'CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist'
-
 env:
   global:
   - APP_NAME="Hello-World"
   - 'DEVELOPER_NAME="iPhone Distribution: Datacom (3W2D35BGJW)"'
   - PROFILE_NAME="Hello_World"
-  - secure: aVUUocavd+48hnj+yRTdZ65vP8IhHBxMFuJL77wKosR+M1RpXXgDfcQZqU3cSqkgIH/5FZCAWBcbNlUWtOBICQLxr3apIa1DNOaK8eRd2BJlaUQKOZcLcx7jyfXo49qXfk1j8qhwn5ykmmAIwxOrER/mx+YSOpK9Wn+EEp/J23OZa9NA8+nTjktt9cQN3Cdn8npFy4QXpPJaPgwM5DAVb+fvcndvMsg1gB7dPXUTv6RCJFB2iUzhzGTmjAnriLrcA7cs1/P8Mdbdnyoe4j6VQBGB2cMFTmL1uXm5tk280+KwAwZIiYM9GMNpglT7mVntR5qZ5uMLkNV/L+4U0VSCH0O9RH7aMF+t84q5xNMHNg+1bSDBEGmcxn7HHMcf/bhqKF475cTSfDxN7tklJ/G7HoDx6iaLlxq9ScYF7UfHz6LZf3yK5saGXFJeaLZ8wKRFBBq3uo7rc7G//G/RyYqJS9eTzZRgLps2dJPtMfH+Tn6JW/FoQftqDPS4djrHYQAHX4Sr1AFNoGlOrYxbZrRefUAQm0GpsxWDmFQaVI42VaqTsy+/4F/Wrz1JC4fjK9nRCNzN4by//jXtjTBizWci9xQkLWLnPACzpRT4BBkIE7g4bb2H7VmkBNcGqNe90gRMcMGxJyyBSS3jyZrVAWwUi/PoJN76P0g2iyrfXhkKnNc=
-  - secure: NT5VGJ6KUIzvr75OmXeWyWJ9hUZTqqWbvqzRUgY+CF/4k7mr6/PSRszXY78igHwZ89Uj38qC8I2RZ4iml3yoSMqszhipF00slibIi+XcCspAzXPWeR7T5GZtHOS/DsA2Ht84fhZ1yi0DNFgEo8kIqi4OfJo6haV18Cdnwra5vURJ7EapbN9HpMPJs2v5Gc3pnRgxDLWYuiLUMHm/PSn1phXG+fkWda21vWw6xHuAsZdOp+Oh1+o4LX2bqWX4v6DTrwuvHh9X8ergrRNn9uQzs9H6z0BRsI3K1iZQfvguPYv0V7vxt//EX+3Li3lDHRKE4xBW/GlNbVZSrslAVRrf5UZsEANM/7AYmVD3RVOxF2yh9uDiUnusso1oChkIe8Uqu6TiJ5P9PeP7ZySH6OG5UVuZM5YGiKgwaWA9VGMxP0mKqsiBluNWoElEF/V+tJln4kKSki/6pfZtdyx6lC2+dixzE5zq/0AgM18cnxm6/2w5OKSHvrJvCP8ynhbZZo+Qfnq4wuS6i1CDZxUPTWjFBuKstwkn6dN2/X3ZgFNwGVarvoWFeCOoxLd8VHtVocy52sPmn4DvgLITTXe+lBiHCl39bMMApGjPYL2yLQRxr5piKiNo45vAAUIz82BUCQ5NnAYG9aLoxiDhvg/Pd3s1uVF0Umy4GBm9l5I+pNvJ8c0=
-
+  - secure: BlD6EYfAjwIeVuFQkpDWOAfnN6Z+R4yVlFEwn6uVCo5Rd3t6b+7B90o9PV/dzac6PYVrj9+cxQ99Ak8O4BO5aK4n5y+Qw6C4b1/XxqSS12j8dpvXnhqe1iN8AQwpOUF136S5HZolxfdcUs+KW4JYs3+BWQBhkr1/jTLZMrUxsKVOWlck2eCNR/wx1FUSGkMsXQiypFe/v/WBY4KK+m2J9B8AvcOII8V9GdhX2KRPOF4cMlmcTKD1HIGdvYoD6mahZeZjO+/ZwhAKigCH0yshWKBWVdgArMdeP3hrhESbdgzaEYlbwtmiETKe+w5gI3JDG3UBZz79TXsMOX65vgKK9chAPSDXx23hRGMBuKpvLogPnH/+WKSA/+BtNoKkZvMuc9rOJpfvpnttZPz0QFDd8m+eJJYf8PIXv0cvU4nUvxFjphJ5dXqdiqU7WX4xbmxWkDv2/XjlrGpjDrGYGakgZc0N/VvVoJPbM0MsqFbw7R/K/Yio8938TZe6ZXpnRkNCjoAqivP1iXiOXIdHZudq8KwnOJHP6e1utoLZqXyPSw+Tgf9q36dTIzuMLuKxx7HC7SNY8j2j0nZq5UwdZXLL/UN5s/x33kurUac1P0rexSizcqlgLDMrpkZ27/hBKzWJv3CIMDinj1UVoJ489F2sG7ylRso7y7i1lyRmVax6kTE=
+  - secure: au0lSOOaLAwxYo0+JDOkMXNssQMDmNYw0LOBv4Ff7n5veblfmvj/Ze0kITXLxG0y9I4xKNHfJ1EPF761PPtiIBnLodt4SrqVkb5m7T4bcyo7VdiS6O+M8MwCtJMgeTbOyJeUMSHLLz83Wsd07dGDP11juD74Nn5HwTKaqffYSXTMKrfIWcjrj5YOftMehV5SBzCQAWBCmfes2xbTHz5JamLSEhbAbljcbgUymkVoW6OuZlR3HAgl0xKNRkiCvkUYHEAXoRw11lnijbqxY98b406v2a/Boq/9dbLkJ2B5bEaxeYbKi1TRCkju3LZij8rOidRSX+wCvcPOlh3mHpQrWQrWstpxnVdcDsKqBqmFVD9e00qNuqv3UAH2wH5Yds1MZMvPbUmfpeoTxvGbrRitVmWBG4V1DP2SAXAup9dicU6w26GQjy8k6SZdlswvMH+Li6ULtedJXPdSpi6n+qz/nhSc8cp2KxLuG99S+atgX2uXATqn3NWbLW2rpD6VQnFn4po4xjPcnhzO6LK04La0yZiM9ha6mQdc5LqMhxziMFGBUFXhlpHdyTOu8QFT0nTcxJky7hZutRWnlpf0ttiL9YdE0XeyzQWDngigOZRqx54aLW59C5+ISIoO8CPAdgAgh+7kX6dYfYr4cAGObPM9AhLnNzRonAgB4kQRtk07/NI=
 after_success:
-- ./scripts/sign-and-upload.sh
-
+- "./scripts/sign-and-upload.sh"
 after_script:
-- ./scripts/remove-key.sh
+- "./scripts/remove-key.sh"
+
+openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/profile/Hello_Wrold.mobileprovision -out scripts/profile/Hello_World.mobileprovision.enc -a
+openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/certs/dist.cer -out scripts/certs/dist.cer.enc -a
+openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/certs/dist.p12 -out scripts/certs/dist.p12.enc -a

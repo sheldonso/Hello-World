@@ -22,5 +22,5 @@ curl https://rink.hockeyapp.net/api/2/apps/$HOCKEY_APP_ID/app_versions \
 -F notes="$RELEASE_NOTES" \
 -F notes_type="0" \
 -F ipa="@$OUTPUTDIR/$APP_NAME.ipa" \
--F dsym="@$OUTPUTDIR/$APP_NAME.app.dSYM.zip" \
+-F dsym="@$OUTPUTDIR/$APP_NAME.app.dSYM" \
 -H "X-HockeyAppToken: $HOCKEY_APP_TOKEN"

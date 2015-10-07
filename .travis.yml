@@ -6,6 +6,8 @@ before_script:
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
 - ./scripts/add-key.sh
 
+- pod install
+
 script:
 - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 - xctool test -workspace Hello-World.xcworkspace -scheme Hello-WorldTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO

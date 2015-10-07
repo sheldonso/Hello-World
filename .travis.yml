@@ -18,7 +18,3 @@ after_success:
 - "./scripts/sign-and-upload.sh"
 after_script:
 - "./scripts/remove-key.sh"
-
-openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/profile/Hello_Wrold.mobileprovision -out scripts/profile/Hello_World.mobileprovision.enc -a
-openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/certs/dist.cer -out scripts/certs/dist.cer.enc -a
-openssl aes-256-cbc -k "M0bileInn0vati0n" -in scripts/certs/dist.p12 -out scripts/certs/dist.p12.enc -a

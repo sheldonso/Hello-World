@@ -1,14 +1,16 @@
 language: objective-c
 osx_image: xcode7
 before_script:
-- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/Hello_World.mobileprovision.enc -d -a -out scripts/profile/Hello_World.mobileprovision
-- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a -out scripts/certs/dist.cer
-- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/Hello_World.mobileprovision.enc
+  -d -a -out scripts/profile/Hello_World.mobileprovision
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a
+  -out scripts/certs/dist.cer
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a
+  -out scripts/certs/dist.p12
 - pod install
 - "./scripts/add-key.sh"
 script:
 - xctool -workspace Hello-World.xcworkspace -scheme Hello-World -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO 'CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist'
-- xctool -workspace Hello-World.xcworkspace -scheme Hello-World clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 env:
   global:
   - APP_NAME="Hello-World"
@@ -16,6 +18,8 @@ env:
   - PROFILE_NAME="Hello_World"
   - secure: Xvt5mCwaEraDfw68HT4944XJeM4volVdmnMHd3sJ5dV5DtxPEEjekqE9b+ZmefmUxbZ/IwxO8p4hZNBIPIVEi2cypnSz2I/L7/rIxOpRm44aIBwpczOdQCzyLfQicgpQ3iwMbUTyZMfxKgZAWcbzYuLwbs1CnJE5J7Co0h4XgM0ux3OzSdsUJGSG8JG8BPNq/dWXTSaULDTjx7l4I6GG2bB29TFjoqNjLahK9HT6UYS0kc5/ZAvNUYNXCAOj1c/8PU05zsqKM2+Jb3Qtk2H0Ze5C/sMTncbomJ27UsBzhoLVNjkBFwI4zqoCYVUJNB7hDCNKfxWsO79G4F6dIUYGOcRPKP1TSNjIdD90dVRt9ql6rq8WmHMfpBuQdmtCCpmUqMFHpsjw/najaJChyARD/jg+5lWzmt4CMuq1rRLacUkBVsUHCPoxi+9bUpiVwJ0EIcsfm+esSDRALCtSk71r2cBwr3wQ/c1YTXONhi1XhgTwhlEcZcKFwFclvKAMEoV4xcmXgvE24mEJoa+FO+PFUAKxsUa/FLMNYRZ0+GGxCg38yO2HQwGqVlou3XrTOmKvQ6VLM/0Eo1YtclKjG/tmI14zPFWLPq2mulfAdDlr3DaY4Bl6qLXpFxhQZjOAHptN/y2NYfJ5jejb1tcPJXd8yGFg8tGeco6dqpc5iz/DuiU=
   - secure: KfVf7eSyrrNBQAi9N1ewZ4ooDMk+O4MhUCXyO9bNz3Qg3BaTcGm72U6oRMORqw9OJhzG8F08M/F1MtYD38FKoFHLwXK5SVc5DE37OKu4d9s/M1RDK480o9MpYPWnh7nRPWb5D5Fu6NjPx33CR3hHKsBVoimBpryucreINKGregMT0fVcyYGK82W5jLeXDMS2oWvHq2+l1UZWz9ExJTUGa3hXVRDhllOYtcAgSzFfVb4UsrmifU+F8sCE/vM0RWizowEKr0M3M1/SxmQr8i2zau1R+GQKI5E9IDx16yiYxJHbbt71iJKYvFPc06LHcbEpMgyIFzb42zu7H/KxngRYReE0brkuIYrg3BhF6M1pRaPDHSUz60UJhMSlfxHVdiEyhho+PSrvew+LL5FVCp73H/k0a6dsoXOo+bmiXnQFX3MR6geF7PadBIr6+Hyq0nZPql+T+1+B7hCibJJP9+FkR+m8OYAWdepg54mA9PgLf9zJkkawKDd3Ghwxz7L3AZQk/KIR3cGegK2TBAUr5/5cPvRWbj8R37xZiHoH2orvq8Dk3x11Fqb/xGZCqllYc0qkocoVdIqSSVB7zf7+wfYkGf8UvKNzWx/6GWZFGHHpM6+C6l/PuTGmniv85fsVZCbDev2LPPVUx0H20jz1IzDJZbY55MnZ+PGYCA2k+1W0h1o=
+  - secure: HlDgVM5+sRZCGX8JMEemmEhEyd6yCjsZjJMrPXy6+qnwiwCk7uqqbzzveHGdRIxP3R+wGRT7VTOAeKSNKgmFkN1PcynbiCp1tl6on0Za0o46P/B/TQ4CXSpU6f3k1O0Qa8apT708FNy70qolw6bqQ21eiEGjjgEMwN9sIfoJULqUy7EHLhGeDKNEhPWQ8VsPZ7yiLCRI61WFxL1oiRVpb42AwkIRWTfqWj2Fh2oaylPHAcvYMwDjBMaJ0+9V4TasQMXgvx4WrmXpEdt2y+D3rTK9bjwICo0kKuE/2sUqQRVuUo97BlvLvk3dedeUzh37VpjeVt1rGw18tx7JJfs9kdNqgAMYw+An5qfPIyHr1YgqbGp6G+1mR2Scu/6BEHbdlCEneeyaSej93hAhdc5graFwskuUShpm9Jip4W1kfirdvN9hKm7FyCBa85nYllOh/kRJjMy9gC3xneZQtY2bl6bVhKYkQRfkIZQ4/pVbz2L6+Z2UD6d2Id9MKn+zY7tpNaFduNvOUrWPYa79UuoA4cgpKCV63jQidJEfKlNyMcjwOUf7M17wm36g/dMI6zdP2j6sOtM234VDohO6IRPBSEk/ZlLBvnxAXlNxrUcth9KfjdyYgol4vvyneha3uLXSDviwuYbqXjM4xLHqEmc4o/SjsNaIUfm+jsOKvtNqTPM=
+  - secure: gMq4+j5l0iNGj0MCx65mLPrurciJhgFKMqSQnhh5NFQzIW9e5mrW+ngHyu1SadzACY1Q4xVPbg9xbJ7ohgxaisSnYXVDd9b1VeqvjI74TW6vMktfbhaV9NxFaeHw1K24nixOfCbjt77bV39nM0Lg9S78MXr4JcL/DmPiXHXX3kvtbYNYETT2S7am0rtvcMg5ksDxAe+5hTobLtAmu8KyJlDmbPlpCaW+60tE5qvc+NZf5IRoBCn3Kwj/7AG6hP8F/Gdz2T0C4fIXw0Kads9iCz3AKK6AaOUkz8ngzm+kThVYat0gtL0uAsKCh0xYK5v7iNk12darbEo55FgrxAEMdk4RiEN90A6l065Vpj7boQLzuhMLKD76NFyc7O1EpWw3fpSOM1/3kviNXYLjQUs4+vMoC9plUZvo8Yo1hHVegEjP1qdSZnj2lRpbw7vucJy6h6vHkcpp7ftddwDM2QdUzj6/YnczR8e7HEo8NlQa0lHDf3GlA8kRR4f/41K0pCvYc0M8WcZZHIDx50J/MNu7kr9vjPCa+wB4snEixFkiPLXwSXw8bHhi6Fv6CS4MdHmnnIi+l/Fyoqg37NGz47TTK1nheDwJv0AtJJMSA7JdmnGfYhnB2FdUa786xf99YtUl+X9KbAaMshjR4NhS4hvUa4mreVTZcUZYlLsWT17Ognk=
 after_success:
 - "./scripts/sign-and-upload.sh"
 after_script:

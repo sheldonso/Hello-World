@@ -5,7 +5,6 @@ env:
   - APP_NAME="Hello-World"
   - SCHEME_NAME="Hello-World"
   - SCHEME_TESTS_NAME="Hello-WorldTests"
-  - SCHEME_UITESTS_NAME="Hello-WorldUITests"
   - DEVELOPER_NAME="iPhone Distribution: Datacom (3W2D35BGJW)"
   - PROFILE_NAME="Hello_World"
   - secure: Xvt5mCwaEraDfw68HT4944XJeM4volVdmnMHd3sJ5dV5DtxPEEjekqE9b+ZmefmUxbZ/IwxO8p4hZNBIPIVEi2cypnSz2I/L7/rIxOpRm44aIBwpczOdQCzyLfQicgpQ3iwMbUTyZMfxKgZAWcbzYuLwbs1CnJE5J7Co0h4XgM0ux3OzSdsUJGSG8JG8BPNq/dWXTSaULDTjx7l4I6GG2bB29TFjoqNjLahK9HT6UYS0kc5/ZAvNUYNXCAOj1c/8PU05zsqKM2+Jb3Qtk2H0Ze5C/sMTncbomJ27UsBzhoLVNjkBFwI4zqoCYVUJNB7hDCNKfxWsO79G4F6dIUYGOcRPKP1TSNjIdD90dVRt9ql6rq8WmHMfpBuQdmtCCpmUqMFHpsjw/najaJChyARD/jg+5lWzmt4CMuq1rRLacUkBVsUHCPoxi+9bUpiVwJ0EIcsfm+esSDRALCtSk71r2cBwr3wQ/c1YTXONhi1XhgTwhlEcZcKFwFclvKAMEoV4xcmXgvE24mEJoa+FO+PFUAKxsUa/FLMNYRZ0+GGxCg38yO2HQwGqVlou3XrTOmKvQ6VLM/0Eo1YtclKjG/tmI14zPFWLPq2mulfAdDlr3DaY4Bl6qLXpFxhQZjOAHptN/y2NYfJ5jejb1tcPJXd8yGFg8tGeco6dqpc5iz/DuiU=
@@ -25,7 +24,6 @@ script:
 - xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_NAME build -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # Test the workspace
 - xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_TESTS_NAME test -parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_UITESTS_NAME test -parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # Release the project
 - xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_NAME -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO 'CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist'
 after_success:

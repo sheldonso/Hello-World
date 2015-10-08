@@ -24,8 +24,8 @@ script:
 # Build the workspace
 - xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_NAME build -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # Test the workspace
-- xctool -workspace $APP_NAME.wcworkspace -scheme $SCHEME_TESTS_NAME test -parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-- xctool -workspace $APP_NAME.wcworkspace -scheme $SCHEME_UITESTS_NAME test parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_TESTS_NAME test -parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_UITESTS_NAME test parallelize -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 # Release the project
 - xctool -workspace $APP_NAME.xcworkspace -scheme $SCHEME_NAME -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO 'CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist'
 after_success:

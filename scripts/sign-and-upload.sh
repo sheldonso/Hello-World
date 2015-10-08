@@ -13,7 +13,7 @@ OUTPUTDIR="$PWD/build/Release-iphoneos"
 
 #xcrun -log -sdk iphoneos PackageApplication "$OUTPUTDIR/$APP_NAME.app" -o "$OUTPUTDIR/$APP_NAME.ipa" -sign "$DEVELOPER_NAME" -embed "$PROVISIONING_PROFILE"
 #xcrun -sdk iphoneos PackageApplication -v "$PWD/build/Release-iphoneos/Hello-World.app" -o "$PWD/build/Release-iphoneos/Hello-World.ipa" --sign "iPhone Distribution: Datacom (3W2D35BGJW)"
-xcrun -sdk iphoneos PackageApplication -v "$OUTPUTDIR/$APP_NAME.app" -o "$OUTPUTDIR/$APP_NAME.ipa" --sign "$PROVISIONING_PROFILE"
+xcrun -sdk iphoneos PackageApplication -v "$OUTPUTDIR/$APP_NAME.app" -o "$OUTPUTDIR/$APP_NAME.ipa" --sign "$DEVELOPER_NAME" -embed "$PROVISIONING_PROFILE"
 
 
 RELEASE_DATE=`date '+%Y-%m-%d %H:%M:%S'`

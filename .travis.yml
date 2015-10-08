@@ -13,6 +13,7 @@ env:
 before_script:
 - brew update
 - brew outdated xctool || brew upgrade xctool
+- pod install
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/Hello_World.mobileprovision.enc -d -a -out scripts/profile/Hello_World.mobileprovision
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a -out scripts/certs/dist.cer
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
